@@ -22,29 +22,38 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-24">
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
+            나 정도면{" "}
+            <br />
+            시집·장가 잘 갈 수 있을까?
+          </h1>
+          
+          <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
             결혼정보회사에서는{" "}
             <br className="hidden md:block" />
             스펙에 따라 점수를 매깁니다.
-          </h1>
+          </h2>
           
-          <p className="text-lg md:text-xl text-landing-muted mb-6">
-            하지만 내 점수를 확인하려면{" "}
-            <br className="hidden md:block" />
-            사실상 유료 가입이 필요합니다.
-          </p>
-          
-          <p className="text-base md:text-lg text-landing-secondary leading-relaxed mb-6">
-            연봉, 직업, 학벌, 자산 등{" "}
-            <br className="hidden md:block" />
-            결혼정보회사에서 실제로 보는 기준으로{" "}
-            <br className="hidden md:block" />
-            당신의 현재 점수를{" "}
-            <br className="hidden md:block" />
-            등록 전에 미리 알려드립니다.
-          </p>
+          <div className="text-base md:text-lg text-landing-muted leading-relaxed mb-8 space-y-4">
+            <p>
+              연봉, 직업, 학벌, 자산.
+              <br />
+              사실 우리는 이미
+              <br />
+              다 계산되는 시장에 살고 있습니다.
+            </p>
+            <p>
+              다만 문제는,
+              <br />
+              내 점수가 얼마인지는
+              <br />
+              가입하고 돈을 내야만 알 수 있다는 것.
+            </p>
+          </div>
           
           <p className="text-base md:text-lg font-semibold text-landing-foreground mb-8">
-            10초면 끝납니다.
+            결혼정보회사 등록 전에{" "}
+            <br className="hidden md:block" />
+            내 점수를 먼저 알 수 있다면 어떨까요?
           </p>
           
           <button
@@ -55,72 +64,98 @@ const Index = () => {
           </button>
           
           <p className="text-sm text-landing-muted mt-4">
-            회원가입 없음 · 개인정보 저장 안 함 · 참고용 테스트
+            회원가입 없음 · 개인정보 저장 안 함 · 10초 소요
           </p>
         </div>
       </section>
 
-      {/* Section 2: Why this exists */}
+      {/* Section: Empathy */}
       <section className="bg-landing-section">
         <div className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
           <div className="max-w-[640px]">
             <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-              왜 이 테스트가 필요한가요?
+              결혼정보회사 등록,{" "}
+              <br />
+              왜 이렇게 망설여질까요?
             </h2>
             
-            <ul className="space-y-4 text-base md:text-lg text-landing-secondary mb-8">
+            <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>결혼정보회사 점수는 가입 전에는 알 수 없음</span>
+                <span>가입 전에 내 위치를 알 수 없다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>실제 기준은 공개되지 않음</span>
+                <span>비용과 상담이 부담스럽다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>등록 후에야 내 위치를 알게 됨</span>
+                <span>개인정보를 넘기는 게 찜찜하다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>비용과 개인정보 부담이 큼</span>
+                <span>그래도… 내 점수는 솔직히 궁금하다</span>
               </li>
             </ul>
-            
-            <p className="text-base md:text-lg text-landing-secondary">
-              이 테스트는 그 과정을 건너뛰기 위한{" "}
-              <br className="hidden md:block" />
-              사전 확인용 도구입니다.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Section 3: What you get */}
+      {/* Section: Solution */}
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
           <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-            이 테스트로 알 수 있는 것
+            그래서 이 테스트는 이렇게 만듭니다
           </h2>
           
           <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>결혼정보회사 기준 예상 점수</span>
+              <span>결혼정보회사에서 실제로 보는 기준을 기반으로</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>내 위치에 대한 현실적인 해석</span>
+              <span>점수와 티어로 현재 위치를 요약해서</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>나와 비슷한 점수대 사람들의 평균 조건</span>
+              <span>가입·결제 없이</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-landing-muted mt-1">•</span>
+              <span>사전 참고용으로만 보여드립니다</span>
             </li>
           </ul>
         </div>
       </section>
 
-      {/* Section 4: Disclaimer */}
+      {/* Section: Outcome */}
+      <section className="bg-landing-section">
+        <div className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
+          <div className="max-w-[640px]">
+            <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
+              이 테스트로 알 수 있는 것
+            </h2>
+            
+            <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
+              <li className="flex items-start gap-3">
+                <span className="text-landing-muted mt-1">•</span>
+                <span>결혼정보회사 기준 예상 점수</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-landing-muted mt-1">•</span>
+                <span>나 정도면 어떤 급인지에 대한 현실적인 해석</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-landing-muted mt-1">•</span>
+                <span>나와 비슷한 점수대 사람들의 평균 조건</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Section: Disclaimer */}
       <section className="max-w-[960px] mx-auto px-6 py-8">
         <div className="max-w-[640px]">
           <p className="text-sm text-landing-muted leading-relaxed">
@@ -134,6 +169,12 @@ const Index = () => {
       {/* Final CTA Section */}
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
+          <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
+            나 정도면,{" "}
+            <br />
+            결혼 시장에서 어디쯤일까요?
+          </p>
+          
           <button
             onClick={handleStart}
             className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
