@@ -12,9 +12,7 @@ const Index = () => {
       {/* Header */}
       <header className="w-full border-b border-landing-border">
         <div className="max-w-[960px] mx-auto px-6 py-4 flex items-center justify-between">
-          <span className="text-base font-medium text-landing-foreground">
-            결혼정보회사 기준 점수 테스트
-          </span>
+          <span className="text-base font-medium text-landing-foreground">결혼정보회사 기준 점수 테스트</span>
         </div>
       </header>
 
@@ -22,24 +20,21 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-24">
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
-            나 정도면{" "}
-            <br />
+            나 정도면 <br />
             시집·장가 잘 갈 수 있을까?
           </h1>
-          
+
           <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
-            결혼정보회사에서는{" "}
-            <br className="hidden md:block" />
+            결혼정보회사에서는 <br className="hidden md:block" />
             스펙에 따라 점수를 매깁니다.
           </h2>
-          
+
           <div className="text-base md:text-lg text-landing-muted leading-relaxed mb-8 space-y-4">
             <p>
               연봉, 직업, 학벌, 자산.
               <br />
               사실 우리는 이미
-              <br />
-              다 계산되는 시장에 살고 있습니다.
+              <br />다 계산되는 시장에 살고 있습니다.
             </p>
             <p>
               다만 문제는,
@@ -49,23 +44,19 @@ const Index = () => {
               가입하고 돈을 내야만 알 수 있다는 것.
             </p>
           </div>
-          
+
           <p className="text-base md:text-lg font-semibold text-landing-foreground mb-8">
-            결혼정보회사 등록 전에{" "}
-            <br className="hidden md:block" />
-            내 점수를 먼저 알 수 있다면 어떨까요?
+            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 알 수 있다면 어떨까요?
           </p>
-          
+
           <button
             onClick={handleStart}
             className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
           >
-            내 점수 먼저 확인하기
+            내 점수 확인하기
           </button>
-          
-          <p className="text-sm text-landing-muted mt-4">
-            회원가입 없음 · 개인정보 저장 안 함 · 10초 소요
-          </p>
+
+          <p className="text-sm text-landing-muted mt-4">회원가입 없음 · 개인정보 불필요</p>
         </div>
       </section>
 
@@ -74,11 +65,9 @@ const Index = () => {
         <div className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
           <div className="max-w-[640px]">
             <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-              결혼정보회사 등록,{" "}
-              <br />
-              왜 이렇게 망설여질까요?
+              결혼정보회사 등록, <br />왜 이렇게 망설여질까요?
             </h2>
-            
+
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
@@ -107,7 +96,7 @@ const Index = () => {
           <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
             그래서 이 테스트는 이렇게 만듭니다
           </h2>
-          
+
           <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
@@ -136,7 +125,7 @@ const Index = () => {
             <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
               이 테스트로 알 수 있는 것
             </h2>
-            
+
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
@@ -159,9 +148,7 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-8">
         <div className="max-w-[640px]">
           <p className="text-sm text-landing-muted leading-relaxed">
-            본 테스트는 실제 결혼정보회사 평가와{" "}
-            차이가 있을 수 있으며,{" "}
-            재미 및 자기이해 목적의 참고 자료입니다.
+            본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, 재미 및 자기이해 목적의 참고 자료입니다.
           </p>
         </div>
       </section>
@@ -170,16 +157,15 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
           <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-            나 정도면,{" "}
-            <br />
+            나 정도면, <br />
             결혼 시장에서 어디쯤일까요?
           </p>
-          
+
           <button
             onClick={handleStart}
             className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
           >
-            내 점수 먼저 확인하기
+            내 점수 확인하기
           </button>
         </div>
       </section>
