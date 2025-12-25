@@ -1,137 +1,224 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
-import { ChatBubble } from "@/components/ChatBubble";
 
-interface SurveyOption {
-  value: string;
-  label: string;
+interface Answer {
+  questionId: string;
+  questionText: string;
+  answerText: string;
+  answerValue: string;
 }
 
-interface SurveyStep {
-  question: string;
-  options: SurveyOption[];
+interface Question {
+  id: string;
+  text: string;
+  options: { value: string; label: string }[];
+  condition?: (answers: Answer[]) => boolean;
 }
 
-const surveySteps: SurveyStep[] = [
+const questions: Question[] = [
   {
-    question: "성별이 어떻게 되세요?",
+    id: "salary",
+    text: "현재 본인의 연봉 수준은?",
+    options: [
+      { value: "under-3000", label: "3,000만 원 미만" },
+      { value: "3000-3999", label: "3,000만 ~ 3,999만 원" },
+      { value: "4000-4999", label: "4,000만 ~ 4,999만 원" },
+      { value: "5000-6999", label: "5,000만 ~ 6,999만 원" },
+      { value: "7000-8999", label: "7,000만 ~ 8,999만 원" },
+      { value: "over-9000", label: "9,000만 원 이상" },
+    ],
+  },
+  {
+    id: "job",
+    text: "현재 직업에 가장 가까운 유형은?",
+    options: [
+      { value: "professional", label: "전문직 (의사·변호사·회계사)" },
+      { value: "big-corp", label: "대기업 정규직" },
+      { value: "public", label: "공무원 / 공기업" },
+      { value: "business-owner", label: "사업가 (법인·규모형)" },
+      { value: "mid-corp", label: "중견기업 정규직" },
+      { value: "startup", label: "성장형 스타트업 핵심 인력" },
+      { value: "freelance", label: "프리랜서 (전문직 계열)" },
+      { value: "self-employed", label: "자영업" },
+      { value: "contract", label: "계약직 / 비정규 / 알바" },
+      { value: "unemployed", label: "무직 / 준비 중" },
+    ],
+  },
+  {
+    id: "education",
+    text: "최종 학력은?",
+    options: [
+      { value: "graduate", label: "대학원 이상" },
+      { value: "university", label: "4년제 졸업" },
+      { value: "college", label: "전문대" },
+      { value: "high-school", label: "고졸 이하" },
+    ],
+  },
+  {
+    id: "school",
+    text: "출신 학교는 어디에 해당하나요?",
+    options: [
+      { value: "sky", label: "SKY" },
+      { value: "kaist-postech", label: "KAIST / POSTECH" },
+      { value: "top-tier", label: "서성한" },
+      { value: "mid-tier", label: "중경외시" },
+      { value: "seoul-other", label: "기타 인서울 4년제" },
+      { value: "metro", label: "수도권 4년제" },
+      { value: "regional", label: "지방 4년제" },
+    ],
+    condition: (answers) => {
+      const edu = answers.find((a) => a.questionId === "education");
+      return edu?.answerValue === "graduate" || edu?.answerValue === "university";
+    },
+  },
+  {
+    id: "housing",
+    text: "본인 명의 주택(자가)을 보유하고 있나요?",
+    options: [
+      { value: "yes", label: "있음" },
+      { value: "no", label: "없음" },
+    ],
+  },
+  {
+    id: "car",
+    text: "본인 명의 차량이 있나요?",
+    options: [
+      { value: "yes", label: "있음" },
+      { value: "no", label: "없음" },
+    ],
+  },
+  {
+    id: "car-type",
+    text: "어떤 차량인가요?",
+    options: [
+      { value: "foreign", label: "외제차" },
+      { value: "domestic", label: "국산차" },
+    ],
+    condition: (answers) => {
+      const car = answers.find((a) => a.questionId === "car");
+      return car?.answerValue === "yes";
+    },
+  },
+  {
+    id: "gender",
+    text: "성별은?",
     options: [
       { value: "male", label: "남성" },
       { value: "female", label: "여성" },
-    ],
-  },
-  {
-    question: "나이대가 어떻게 되세요?",
-    options: [
-      { value: "20s-early", label: "20대 초반" },
-      { value: "20s-mid", label: "20대 중반" },
-      { value: "20s-late", label: "20대 후반" },
-      { value: "30s-early", label: "30대 초반" },
-      { value: "30s-mid", label: "30대 중반" },
-      { value: "30s-late", label: "30대 후반" },
-      { value: "40s+", label: "40대 이상" },
-    ],
-  },
-  {
-    question: "현재 연봉이 어느 정도인가요?",
-    options: [
-      { value: "under-3000", label: "3천만원 미만" },
-      { value: "3000-5000", label: "3천~5천만원" },
-      { value: "5000-7000", label: "5천~7천만원" },
-      { value: "7000-1억", label: "7천~1억" },
-      { value: "over-1억", label: "1억 이상" },
-    ],
-  },
-  {
-    question: "최종 학력이 어떻게 되세요?",
-    options: [
-      { value: "high-school", label: "고졸" },
-      { value: "college", label: "전문대졸" },
-      { value: "university", label: "4년제 대졸" },
-      { value: "top-university", label: "명문대 졸" },
-      { value: "graduate", label: "대학원 이상" },
-    ],
-  },
-  {
-    question: "현재 보유 자산은 어느 정도인가요?",
-    options: [
-      { value: "under-5000", label: "5천만원 미만" },
-      { value: "5000-1억", label: "5천~1억" },
-      { value: "1억-3억", label: "1억~3억" },
-      { value: "3억-5억", label: "3억~5억" },
-      { value: "over-5억", label: "5억 이상" },
     ],
   },
 ];
 
 const Survey = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const currentQuestion = surveySteps[currentStep];
-  const progress = ((currentStep + 1) / surveySteps.length) * 100;
-
-  const handleSelect = (value: string) => {
-    setAnswers((prev) => ({ ...prev, [currentStep]: value }));
-    
-    if (currentStep < surveySteps.length - 1) {
-      setTimeout(() => {
-        setCurrentStep((prev) => prev + 1);
-      }, 300);
-    } else {
-      setTimeout(() => {
-        navigate("/result", { state: { answers } });
-      }, 300);
-    }
+  // Get visible questions based on conditions
+  const getVisibleQuestions = (currentAnswers: Answer[]) => {
+    return questions.filter((q) => {
+      if (!q.condition) return true;
+      return q.condition(currentAnswers);
+    });
   };
 
-  const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
-    } else {
-      navigate("/");
-    }
+  const visibleQuestions = getVisibleQuestions(answers);
+  const currentQuestion = visibleQuestions[currentQuestionIndex];
+  const totalQuestions = getVisibleQuestions(answers).length;
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [answers, currentQuestionIndex]);
+
+  const handleSelect = (option: { value: string; label: string }) => {
+    if (isTransitioning || !currentQuestion) return;
+
+    setIsTransitioning(true);
+
+    const newAnswer: Answer = {
+      questionId: currentQuestion.id,
+      questionText: currentQuestion.text,
+      answerText: option.label,
+      answerValue: option.value,
+    };
+
+    const updatedAnswers = [...answers, newAnswer];
+    setAnswers(updatedAnswers);
+
+    setTimeout(() => {
+      const nextVisibleQuestions = getVisibleQuestions(updatedAnswers);
+      const nextIndex = currentQuestionIndex + 1;
+
+      if (nextIndex >= nextVisibleQuestions.length) {
+        navigate("/result", { state: { answers: updatedAnswers } });
+      } else {
+        setCurrentQuestionIndex(nextIndex);
+      }
+      setIsTransitioning(false);
+    }, 400);
   };
 
   return (
     <MobileContainer>
-      <Header 
-        title="연애·결혼 시장 테스트" 
-        showBack 
-        onBack={handleBack}
-      />
-      
-      {/* Progress bar */}
-      <div className="h-1 bg-secondary">
-        <div 
-          className="h-full bg-primary transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
+      <Header title="연애·결혼 시장 테스트" />
 
-      <main className="flex-1 px-4 py-6 flex flex-col">
-        <div className="mb-2 text-xs text-muted-foreground">
-          {currentStep + 1} / {surveySteps.length}
+      <main className="flex-1 px-4 py-4 flex flex-col overflow-y-auto">
+        {/* Progress */}
+        <div className="text-xs text-muted-foreground mb-4">
+          {currentQuestionIndex + 1} / {totalQuestions}
         </div>
 
-        <ChatBubble key={currentStep} delay={0}>
-          {currentQuestion.question}
-        </ChatBubble>
-
-        <div className="mt-6 flex flex-col gap-2">
-          {currentQuestion.options.map((option, index) => (
-            <button
-              key={option.value}
-              onClick={() => handleSelect(option.value)}
-              className="w-full px-4 py-3 bg-card text-card-foreground text-left text-[15px] rounded-lg active:bg-secondary transition-colors chat-appear"
-              style={{ animationDelay: `${(index + 1) * 100}ms` }}
-            >
-              {option.label}
-            </button>
+        {/* Chat history */}
+        <div className="flex flex-col gap-3">
+          {answers.map((answer, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              {/* Question bubble (left) */}
+              <div className="flex justify-start">
+                <div className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed">
+                  {answer.questionText}
+                </div>
+              </div>
+              {/* Answer bubble (right) */}
+              <div className="flex justify-end">
+                <div className="max-w-[85%] px-4 py-3 bg-primary text-primary-foreground rounded-lg text-[15px] leading-relaxed">
+                  {answer.answerText}
+                </div>
+              </div>
+            </div>
           ))}
+
+          {/* Current question */}
+          {currentQuestion && (
+            <div className="flex flex-col gap-3">
+              {/* Question bubble (left) */}
+              <div className="flex justify-start">
+                <div className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed chat-appear">
+                  {currentQuestion.text}
+                </div>
+              </div>
+
+              {/* Answer options (right aligned) */}
+              <div className="flex flex-col gap-2 items-end">
+                {currentQuestion.options.map((option, index) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleSelect(option)}
+                    disabled={isTransitioning}
+                    className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed text-right active:bg-primary active:text-primary-foreground transition-colors chat-appear disabled:opacity-50"
+                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div ref={chatEndRef} />
         </div>
       </main>
     </MobileContainer>
