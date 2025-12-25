@@ -70,19 +70,19 @@ const Index = () => {
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>가입 전에 내 위치를 알 수 없어요</span>
+                <span>가입 전에 내 위치를 알 수 없다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>비용과 상담이 부담스러워요</span>
+                <span>비용과 상담이 부담스럽다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>개인정보를 넘기는 게 찜찜해요</span>
+                <span>개인정보를 넘기는 게 찜찜하다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>그래도… 내 점수는 솔직히 궁금해요</span>
+                <span>그래도… 내 점수는 솔직히 궁금하다</span>
               </li>
             </ul>
           </div>
@@ -92,24 +92,26 @@ const Index = () => {
       {/* Section: Solution */}
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
-          <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">그래서 무료로 준비했어요</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
+            그래서 이 테스트는 이렇게 만듭니다
+          </h2>
 
           <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>결혼정보회사에서 실제로 측정하는 기준으로</span>
+              <span>결혼정보회사에서 실제로 보는 기준을 기반으로</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>나의 스펙을 분석해서</span>
+              <span>점수와 티어로 현재 위치를 요약해서</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>가입·개인정보 제공 없이</span>
+              <span>가입·결제 없이</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>5초만에 점수를 알려드릴게요</span>
+              <span>사전 참고용으로만 보여드립니다</span>
             </li>
           </ul>
         </div>
@@ -119,7 +121,9 @@ const Index = () => {
       <section className="bg-landing-section">
         <div className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
           <div className="max-w-[640px]">
-            <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">5초만에 알 수 있는 것</h2>
+            <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
+              이 테스트로 알 수 있는 것
+            </h2>
 
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
@@ -128,11 +132,11 @@ const Index = () => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>나 정도면 어떤 등급인지에 대한 현실적인 해석</span>
+                <span>나 정도면 어떤 급인지에 대한 현실적인 해석</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>나와 비슷한 등급 사람들의 평균 조건</span>
+                <span>나와 비슷한 점수대 사람들의 평균 조건</span>
               </li>
             </ul>
           </div>
@@ -143,7 +147,7 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-8">
         <div className="max-w-[640px]">
           <p className="text-sm text-landing-muted leading-relaxed">
-            본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, 재미 및 자기이해 목적의 참고 자료에요.
+            본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, 재미 및 자기이해 목적의 참고 자료입니다.
           </p>
         </div>
       </section>
@@ -152,19 +156,15 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
           <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-            나 정도면, <br />
-            결혼 시장에서 어디쯤일까요?
+            나 정도면, 결혼 시장에서 어디쯤일까?
           </p>
 
-          {/* Centered CTA Button */}
-          <div className="flex justify-center">
-            <button
-              onClick={handleStart}
-              className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
-            >
-              내 점수 확인하기
-            </button>
-          </div>
+          <button
+            onClick={handleStart}
+            className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
+          >
+            내 점수 확인하기
+          </button>
         </div>
       </section>
 
