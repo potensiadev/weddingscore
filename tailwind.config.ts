@@ -54,6 +54,16 @@ export default {
           left: "hsl(var(--chat-bubble-left))",
           right: "hsl(var(--chat-bubble-right))",
         },
+        landing: {
+          background: "hsl(var(--landing-background))",
+          foreground: "hsl(var(--landing-foreground))",
+          secondary: "hsl(var(--landing-secondary))",
+          muted: "hsl(var(--landing-muted))",
+          border: "hsl(var(--landing-border))",
+          section: "hsl(var(--landing-section))",
+          button: "hsl(var(--landing-button))",
+          "button-foreground": "hsl(var(--landing-button-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
