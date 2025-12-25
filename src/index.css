@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* KakaoTalk colors in HSL */
+    /* KakaoTalk Chat UI colors */
     --background: 0 0% 97%; /* #F7F7F7 */
     --foreground: 0 0% 20%; /* #333333 */
 
@@ -40,6 +40,16 @@
     /* Chat specific */
     --chat-bubble-left: 0 0% 100%;
     --chat-bubble-right: 54 100% 50%;
+
+    /* Landing page specific */
+    --landing-background: 0 0% 100%;
+    --landing-foreground: 0 0% 8%;
+    --landing-secondary: 0 0% 25%;
+    --landing-muted: 0 0% 55%;
+    --landing-border: 0 0% 90%;
+    --landing-section: 0 0% 98%;
+    --landing-button: 0 0% 12%;
+    --landing-button-foreground: 0 0% 100%;
   }
 
   .dark {
