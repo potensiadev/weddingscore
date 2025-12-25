@@ -59,7 +59,7 @@ const Result = () => {
           </ChatBubble>
 
           <ChatBubble variant="right" delay={1000} onClick={handleRealisticMatch}>
-            현실적으로 가능한 상대 알아보기
+            현실적으로 가능한 상대 보기
           </ChatBubble>
         </div>
       </main>
