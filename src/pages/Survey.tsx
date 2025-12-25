@@ -20,7 +20,7 @@ interface Question {
 const questions: Question[] = [
   {
     id: "salary",
-    text: "현재 본인의 연봉 수준은?",
+    text: "현재 나의 연 소득은?",
     options: [
       { value: "under-3000", label: "3,000만 원 미만" },
       { value: "3000-3999", label: "3,000만 ~ 3,999만 원" },
@@ -32,12 +32,12 @@ const questions: Question[] = [
   },
   {
     id: "job",
-    text: "현재 직업에 가장 가까운 유형은?",
+    text: "현재 나의 직업은?",
     options: [
       { value: "professional", label: "전문직 (의사·변호사·회계사)" },
-      { value: "big-corp", label: "대기업 정규직" },
+      { value: "big-corp", label: "대기업" },
       { value: "public", label: "공무원 / 공기업" },
-      { value: "business-owner", label: "사업가 (법인·규모형)" },
+      { value: "business-owner", label: "사업가 (법인)" },
       { value: "mid-corp", label: "중견기업 정규직" },
       { value: "startup", label: "성장형 스타트업 핵심 인력" },
       { value: "freelance", label: "프리랜서 (전문직 계열)" },
@@ -67,6 +67,7 @@ const questions: Question[] = [
       { value: "seoul-other", label: "기타 인서울 4년제" },
       { value: "metro", label: "수도권 4년제" },
       { value: "regional", label: "지방 4년제" },
+      { value: "overseas", label: "해외대" },
     ],
     condition: (answers) => {
       const edu = answers.find((a) => a.questionId === "education");
@@ -102,6 +103,15 @@ const questions: Question[] = [
     },
   },
   {
+    id: "region",
+    text: "현재 거주 지역은?",
+    options: [
+      { value: "seoul", label: "서울" },
+      { value: "gyeonggi", label: "경기도" },
+      { value: "other", label: "그 외 지역" },
+    ],
+  },
+  {
     id: "gender",
     text: "성별은?",
     options: [
@@ -118,7 +128,6 @@ const Survey = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Get visible questions based on conditions
   const getVisibleQuestions = (currentAnswers: Answer[]) => {
     return questions.filter((q) => {
       if (!q.condition) return true;
@@ -128,7 +137,7 @@ const Survey = () => {
 
   const visibleQuestions = getVisibleQuestions(answers);
   const currentQuestion = visibleQuestions[currentQuestionIndex];
-  const totalQuestions = getVisibleQuestions(answers).length;
+  const totalQuestions = visibleQuestions.length;
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -167,62 +176,33 @@ const Survey = () => {
       <Header title="연애·결혼 시장 테스트" />
 
       <main className="flex-1 px-4 py-4 flex flex-col overflow-y-auto">
-        {/* Progress */}
         <div className="text-xs text-muted-foreground mb-4">
           {currentQuestionIndex + 1} / {totalQuestions}
         </div>
 
-        {/* Chat history */}
         <div className="flex flex-col gap-3">
           {answers.map((answer, index) => (
             <div key={index} className="flex flex-col gap-2">
-              {/* Question bubble (left) */}
               <div className="flex justify-start">
-                <div className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed">
+                <div className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px]">
                   {answer.questionText}
                 </div>
               </div>
-              {/* Answer bubble (right) */}
               <div className="flex justify-end">
-                <div className="max-w-[85%] px-4 py-3 bg-primary text-primary-foreground rounded-lg text-[15px] leading-relaxed">
+                <div className="max-w-[85%] px-4 py-3 bg-primary text-primary-foreground rounded-lg text-[15px]">
                   {answer.answerText}
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Current question */}
           {currentQuestion && (
             <div className="flex flex-col gap-3">
-              {/* Question bubble (left) */}
               <div className="flex justify-start">
-                <div className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed chat-appear">
+                <div className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px] chat-appear">
                   {currentQuestion.text}
                 </div>
               </div>
 
-              {/* Answer options (right aligned) */}
               <div className="flex flex-col gap-2 items-end">
-                {currentQuestion.options.map((option, index) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleSelect(option)}
-                    disabled={isTransitioning}
-                    className="max-w-[85%] px-4 py-3 bg-card text-card-foreground rounded-lg text-[15px] leading-relaxed text-right active:bg-primary active:text-primary-foreground transition-colors chat-appear disabled:opacity-50"
-                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div ref={chatEndRef} />
-        </div>
-      </main>
-    </MobileContainer>
-  );
-};
-
-export default Survey;
+                {currentQuest
