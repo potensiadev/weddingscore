@@ -20,13 +20,12 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-24">
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
-            나 정도면 <br />
-            시집·장가 잘 갈 수 있을까?
+            나.. 결혼 잘 할 수 있을까?
           </h1>
 
           <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
             결혼정보회사에서는 <br className="hidden md:block" />
-            스펙에 따라 점수를 매깁니다.
+            스펙에 따라 점수를 매겨요.
           </h2>
 
           <div className="text-base md:text-lg text-landing-muted leading-relaxed mb-8 space-y-4">
@@ -34,19 +33,19 @@ const Index = () => {
               연봉, 직업, 학벌, 자산.
               <br />
               사실 우리는 이미
-              <br />다 계산되는 시장에 살고 있습니다.
+              <br />다 계산되는 시장에 살고 있어요.
             </p>
             <p>
               다만 문제는,
               <br />
               내 점수가 얼마인지는
               <br />
-              가입하고 돈을 내야만 알 수 있다는 것.
+              결혼정보회사에 가입해야만 알 수 있죠...
             </p>
           </div>
 
           <p className="text-base md:text-lg font-semibold text-landing-foreground mb-8">
-            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 알 수 있다면 어떨까요?
+            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 알아보세요.
           </p>
 
           <button
