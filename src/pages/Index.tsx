@@ -20,12 +20,13 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-24">
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
-            나.. 결혼 잘 할 수 있을까?
+            나 정도면, <br />
+            결혼정보회사에서 어떻게 보일까요?
           </h1>
 
           <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
             결혼정보회사에서는 <br className="hidden md:block" />
-            스펙에 따라 점수를 매겨요.
+            스펙에 따라 점수를 매깁니다.
           </h2>
 
           <div className="text-base md:text-lg text-landing-muted leading-relaxed mb-8 space-y-4">
@@ -40,22 +41,25 @@ const Index = () => {
               <br />
               내 점수가 얼마인지는
               <br />
-              결혼정보회사에 가입해야만 알 수 있죠...
+              결혼정보회사에 가입해야만 알 수 있다는 것.
             </p>
           </div>
 
           <p className="text-base md:text-lg font-semibold text-landing-foreground mb-8">
-            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 알아보세요.
+            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 확인해보세요.
           </p>
 
-          <button
-            onClick={handleStart}
-            className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
-          >
-            내 점수 확인하기
-          </button>
+          {/* CTA Block */}
+          <div className="flex flex-col items-center">
+            <button
+              onClick={handleStart}
+              className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
+            >
+              내 점수 확인하기
+            </button>
 
-          <p className="text-sm text-landing-muted mt-4">회원가입 없음 · 개인정보 불필요</p>
+            <p className="text-sm text-landing-muted mt-4 text-center">회원가입 없이, 참고용으로만 확인해보세요</p>
+          </div>
         </div>
       </section>
 
@@ -154,17 +158,22 @@ const Index = () => {
 
       {/* Final CTA Section */}
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
-        <div className="max-w-[640px]">
-          <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-            나 정도면, 결혼 시장에서 어디쯤일까?
+        <div className="max-w-[640px] mx-auto">
+          <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8 text-center">
+            나 정도면, <br />
+            결혼정보회사에서 어떻게 보일까요?
           </p>
 
-          <button
-            onClick={handleStart}
-            className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
-          >
-            내 점수 확인하기
-          </button>
+          <div className="flex flex-col items-center">
+            <button
+              onClick={handleStart}
+              className="px-8 py-4 bg-landing-button text-landing-button-foreground rounded-lg text-base font-medium hover:opacity-90 transition-opacity"
+            >
+              내 점수 확인하기
+            </button>
+
+            <p className="text-sm text-landing-muted mt-4 text-center">회원가입 없이, 참고용으로만 확인해보세요</p>
+          </div>
         </div>
       </section>
 
