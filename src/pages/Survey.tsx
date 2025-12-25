@@ -63,11 +63,11 @@ const questions: Question[] = [
       { value: "sky", label: "SKY" },
       { value: "kaist-postech", label: "KAIST / POSTECH" },
       { value: "top-tier", label: "서성한" },
+      { value: "overseas", label: "해외대" },
       { value: "mid-tier", label: "중경외시" },
       { value: "seoul-other", label: "기타 인서울 4년제" },
       { value: "metro", label: "수도권 4년제" },
       { value: "regional", label: "지방 4년제" },
-      { value: "overseas", label: "해외대" },
     ],
     condition: (answers) => {
       const edu = answers.find((a) => a.questionId === "education");
@@ -205,4 +205,26 @@ const Survey = () => {
               </div>
 
               <div className="flex flex-col gap-2 items-end">
-                {currentQuest
+                {currentQuestion.options.map((option, index) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleSelect(option)}
+                    disabled={isTransitioning}
+                    className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px] text-right active:bg-primary active:text-primary-foreground chat-appear disabled:opacity-50"
+                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div ref={chatEndRef} />
+        </div>
+      </main>
+    </MobileContainer>
+  );
+};
+
+export default Survey;
