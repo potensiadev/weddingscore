@@ -20,12 +20,12 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-24">
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
-            나 정도면, <br />
+            나는 <br />
             결혼정보회사에서 몇점일까?
           </h1>
 
           <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
-            결혼정보회사에서는 <br className="hidden md:block" />
+            결혼정보회사에서는 <br />
             스펙에 따라 점수를 매겨요
           </h2>
 
