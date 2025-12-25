@@ -154,7 +154,7 @@ const Survey = () => {
       const nextIndex = currentQuestionIndex + 1;
 
       if (nextIndex >= nextVisibleQuestions.length) {
-        navigate("/result", { state: { answers: updatedAnswers } });
+        navigate("/analyzing", { state: { answers: updatedAnswers } });
       } else {
         setCurrentQuestionIndex(nextIndex);
       }
