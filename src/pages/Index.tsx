@@ -21,12 +21,12 @@ const Index = () => {
         <div className="max-w-[640px]">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-landing-foreground mb-6">
             나 정도면, <br />
-            결혼정보회사에서 어떻게 보일까요?
+            결혼정보회사에서 몇점일까?
           </h1>
 
           <h2 className="text-lg md:text-xl text-landing-secondary mb-8">
             결혼정보회사에서는 <br className="hidden md:block" />
-            스펙에 따라 점수를 매깁니다.
+            스펙에 따라 점수를 매겨요
           </h2>
 
           <div className="text-base md:text-lg text-landing-muted leading-relaxed mb-8 space-y-4">
@@ -39,14 +39,14 @@ const Index = () => {
             <p>
               다만 문제는,
               <br />
-              내 점수가 얼마인지는
+              내가 몇점인지는
               <br />
-              결혼정보회사에 가입해야만 알 수 있다는 것.
+              결혼정보회사에 가입해야만 알 수 있다는 거에요.
             </p>
           </div>
 
           <p className="text-base md:text-lg font-semibold text-landing-foreground mb-8">
-            결혼정보회사 등록 전에 <br className="hidden md:block" />내 점수를 먼저 확인해보세요.
+            결혼정보회사 기준 <br className="hidden md:block" />내 점수를 먼저 확인해보세요.
           </p>
 
           {/* CTA Block */}
@@ -74,7 +74,7 @@ const Index = () => {
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>가입 전에 내 위치를 알 수 없다</span>
+                <span>가입 전에 내 점수를 알 수 없다</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
@@ -96,9 +96,7 @@ const Index = () => {
       {/* Section: Solution */}
       <section className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
         <div className="max-w-[640px]">
-          <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-            그래서 이 테스트는 이렇게 만듭니다
-          </h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">돈 쓰지 말고 알아보세요</h2>
 
           <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
             <li className="flex items-start gap-3">
@@ -107,15 +105,11 @@ const Index = () => {
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>점수와 티어로 현재 위치를 요약해서</span>
+              <span>내 점수와 등급을 </span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-landing-muted mt-1">•</span>
-              <span>가입·결제 없이</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-landing-muted mt-1">•</span>
-              <span>사전 참고용으로만 보여드립니다</span>
+              <span>100% 무료로 알려드려요</span>
             </li>
           </ul>
         </div>
@@ -126,7 +120,7 @@ const Index = () => {
         <div className="max-w-[960px] mx-auto px-6 py-16 md:py-20">
           <div className="max-w-[640px]">
             <h2 className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8">
-              이 테스트로 알 수 있는 것
+              10초 만에 확인 가능한 결과
             </h2>
 
             <ul className="space-y-4 text-base md:text-lg text-landing-secondary">
@@ -136,11 +130,11 @@ const Index = () => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>나 정도면 어떤 급인지에 대한 현실적인 해석</span>
+                <span>결혼시장에서의 나의 위치에 대한 현실적인 해석</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-landing-muted mt-1">•</span>
-                <span>나와 비슷한 점수대 사람들의 평균 조건</span>
+                <span>나와 비슷한 점수대 사람들의 평균 스펙</span>
               </li>
             </ul>
           </div>
@@ -151,7 +145,7 @@ const Index = () => {
       <section className="max-w-[960px] mx-auto px-6 py-8">
         <div className="max-w-[640px]">
           <p className="text-sm text-landing-muted leading-relaxed">
-            본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, 재미 및 자기이해 목적의 참고 자료입니다.
+            본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, 재미 및 자기이해 목적의 참고 자료에요.
           </p>
         </div>
       </section>
@@ -161,7 +155,7 @@ const Index = () => {
         <div className="max-w-[640px] mx-auto">
           <p className="text-xl md:text-2xl font-semibold text-landing-foreground mb-8 text-center">
             나 정도면, <br />
-            결혼정보회사에서 어떻게 보일까요?
+            결혼정보회사에서 몇점일까요?
           </p>
 
           <div className="flex flex-col items-center">
