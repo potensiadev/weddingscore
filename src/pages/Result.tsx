@@ -6,52 +6,68 @@ import { ChatBubble } from "@/components/ChatBubble";
 const Result = () => {
   const navigate = useNavigate();
 
-  // Mock result - in real app this would be calculated from answers
-  const percentile = 73;
+  const handleComparisonTier = () => {
+    navigate("/comparison");
+  };
 
-  const handleRestart = () => {
-    navigate("/");
+  const handleSimilarAverage = () => {
+    navigate("/comparison");
+  };
+
+  const handleRealisticMatch = () => {
+    navigate("/comparison");
   };
 
   return (
     <MobileContainer>
       <Header title="연애·결혼 시장 테스트" />
 
-      <main className="flex-1 px-4 py-6 flex flex-col gap-3">
-        <ChatBubble delay={0}>
-          결과가 나왔어요! 🎉
-        </ChatBubble>
-
-        <ChatBubble delay={300}>
-          한국 연애·결혼 시장에서{"\n"}당신의 위치는...
-        </ChatBubble>
-
-        {/* Result card */}
-        <div 
-          className="bg-card rounded-lg p-6 text-center mt-4 chat-appear"
-          style={{ animationDelay: "600ms" }}
-        >
-          <div className="text-muted-foreground text-sm mb-2">상위</div>
-          <div className="text-5xl font-bold text-foreground mb-2">
-            {percentile}%
-          </div>
-          <div className="text-muted-foreground text-sm">
-            동일 성별·연령대 기준
+      <main className="flex-1 px-4 py-6 flex flex-col gap-3 overflow-y-auto">
+        {/* Result summary bubble */}
+        <div className="flex justify-start">
+          <div className="bg-card rounded-lg px-5 py-4 chat-appear">
+            <p className="text-xs text-muted-foreground mb-2">당신의 결과</p>
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="text-4xl font-bold text-card-foreground">82점</span>
+              <span className="px-2 py-1 bg-secondary text-secondary-foreground text-sm rounded-lg font-medium">A-</span>
+            </div>
+            <p className="text-[15px] text-card-foreground">경쟁 가능한 상위 안정권</p>
           </div>
         </div>
 
+        {/* AI Interpretation bubble */}
         <div 
-          className="chat-appear"
-          style={{ animationDelay: "900ms" }}
+          className="flex justify-start chat-appear"
+          style={{ animationDelay: "200ms" }}
         >
-          <ChatBubble delay={0}>
-            연봉, 학력, 자산을 종합한 결과예요.{"\n"}더 자세한 분석이 궁금하시면{"\n"}곧 업데이트될 예정이에요!
+          <div className="max-w-[85%] bg-card rounded-lg px-4 py-3">
+            <p className="text-xs text-muted-foreground mb-1">한 줄 해석</p>
+            <p className="text-[15px] text-card-foreground leading-relaxed">
+              안정적인 조건을 갖춘 현실형 타입입니다. 일부 요소를 보완하면 상위 티어로 이동할 수 있어요.
+            </p>
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <p 
+          className="text-xs text-muted-foreground px-1 chat-appear"
+          style={{ animationDelay: "400ms" }}
+        >
+          본 결과는 재미·자기이해 목적의 참고용입니다.
+        </p>
+
+        {/* CTA bubbles */}
+        <div className="mt-4 flex flex-col gap-2">
+          <ChatBubble variant="right" delay={600} onClick={handleComparisonTier}>
+            이 티어대 이성은 어떤 스펙일까?
           </ChatBubble>
-        </div>
 
-        <div className="mt-4">
-          <ChatBubble variant="right" delay={1200} onClick={handleRestart}>
-            처음으로 돌아가기
+          <ChatBubble variant="right" delay={800} onClick={handleSimilarAverage}>
+            비슷한 점수 사람 평균 보기
+          </ChatBubble>
+
+          <ChatBubble variant="right" delay={1000} onClick={handleRealisticMatch}>
+            현실적으로 가능한 상대 보기
           </ChatBubble>
         </div>
       </main>
