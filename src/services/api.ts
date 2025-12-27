@@ -1,17 +1,11 @@
 import { ScoreInput, ScoreResult } from "@/lib/scoring/types";
 import { calculateScore } from "@/lib/scoring/calculator";
-import { generateAiSummary } from "@/lib/ai/generator";
-import { getSimulationStats, SimulationStats } from "@/lib/scoring/simulation";
-
 export const api = {
-    submitScore: async (input: ScoreInput): Promise<ScoreResult & { ai_summary: string }> => {
+    submitScore: async (input: ScoreInput): Promise<ScoreResult> => {
         // 1. Calculate Score (Deterministic)
         const result = calculateScore(input);
 
-        // 2. Generate AI Summary
-        const ai_summary = await generateAiSummary(input, result);
-
-        return { ...result, ai_summary };
+        return result;
     },
 
     getCompareStats: async (score: number, gender: 'male' | 'female'): Promise<SimulationStats> => {

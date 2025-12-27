@@ -20,7 +20,7 @@ declare global {
 const Result = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const result = location.state?.result as (ScoreResult & { ai_summary: string }) | undefined;
+  const result = location.state?.result as ScoreResult | undefined;
   const input = location.state?.input;
 
   const [displayScore, setDisplayScore] = useState(0);
@@ -178,22 +178,8 @@ const Result = () => {
           </div>
         </div>
 
-        {/* AI Interpretation bubble */}
-        <div className="flex justify-start chat-appear" style={{ animationDelay: "450ms" }}>
-          <div className="w-full bg-primary/5 rounded-2xl px-5 py-4 border border-primary/10 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
-            <p className="text-xs font-bold text-primary mb-2 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
-              AI 한 줄 코멘트
-            </p>
-            <p className="text-[15px] text-card-foreground font-medium leading-relaxed whitespace-pre-wrap italic">
-              "{result.ai_summary}"
-            </p>
-          </div>
-        </div>
-
         {/* Disclaimer */}
-        <p className="text-[11px] text-muted-foreground/60 text-center px-4 chat-appear" style={{ animationDelay: "600ms" }}>
+        <p className="text-[11px] text-muted-foreground/60 text-center px-4 chat-appear" style={{ animationDelay: "450ms" }}>
           * 본 결과는 통계적 시뮬레이션에 기반한 참고용이며, 실제 결혼 시장의 가치는 수치화될 수 없는 다양한 매력 요소에 의해 결정됩니다.
         </p>
 
@@ -202,7 +188,7 @@ const Result = () => {
           <button
             onClick={handleKakaoShare}
             className="w-full py-4 bg-[#FEE500] text-[#191919] rounded-2xl font-bold text-[15px] flex items-center justify-center gap-2 active:scale-[0.98] transition-transform chat-appear"
-            style={{ animationDelay: "800ms" }}
+            style={{ animationDelay: "600ms" }}
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.558 1.712 4.8 4.37 6.042l-.845 3.125a.375.375 0 0 0 .574.408l3.67-2.428c.418.043.845.068 1.231.068 4.97 0 9-3.185 9-7.115S16.97 3 12 3z" />
@@ -212,14 +198,14 @@ const Result = () => {
           <button
             onClick={handleComparisonTier}
             className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-[15px] shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform chat-appear border border-black/5"
-            style={{ animationDelay: "1000ms" }}
+            style={{ animationDelay: "800ms" }}
           >
             나와 비슷한 이성 스펙 확인하기
           </button>
           <button
             onClick={() => navigate("/")}
             className="w-full py-4 bg-secondary text-secondary-foreground rounded-2xl font-bold text-[15px] active:scale-[0.98] transition-transform chat-appear"
-            style={{ animationDelay: "1200ms" }}
+            style={{ animationDelay: "1000ms" }}
           >
             테스트 다시 하기
           </button>

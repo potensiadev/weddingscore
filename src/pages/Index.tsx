@@ -89,14 +89,6 @@ const Index = () => {
             현재까지 총 84,291명이 참여했습니다
           </p>
         </div>
-
-        {/* Trust Section */}
-        <div className="mt-20 w-full flex justify-center">
-          <div className="p-4 rounded-2xl bg-white/50 border border-border/50 min-w-[140px]">
-            <p className="text-2xl font-black text-foreground">5초</p>
-            <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">평균 분석 시간</p>
-          </div>
-        </div>
       </main>
 
       {/* Footer */}
