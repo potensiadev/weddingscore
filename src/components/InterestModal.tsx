@@ -1,20 +1,39 @@
 import { useState } from "react";
+import { api } from "@/services/api";
 
 interface InterestModalProps {
   isOpen: boolean;
   onClose: () => void;
+  score: number;
+  gender: string;
 }
 
-export const InterestModal = ({ isOpen, onClose }: InterestModalProps) => {
+export const InterestModal = ({ isOpen, onClose, score, gender }: InterestModalProps) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim() || !email.trim()) return;
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+    try {
+      await api.submitMatchInterest({
+        name: name.trim(),
+        email: email.trim(),
+        score,
+        gender
+      });
+      setSubmitted(true);
+    } catch (error) {
+      alert("알림 신청 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -47,6 +66,7 @@ export const InterestModal = ({ isOpen, onClose }: InterestModalProps) => {
                 placeholder="이름"
                 className="w-full px-4 py-3 bg-background border border-border rounded-lg text-[15px] text-card-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
                 autoFocus
+                disabled={isSubmitting}
               />
               <input
                 type="email"
@@ -54,19 +74,21 @@ export const InterestModal = ({ isOpen, onClose }: InterestModalProps) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일 주소"
                 className="w-full px-4 py-3 bg-background border border-border rounded-lg text-[15px] text-card-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
+                disabled={isSubmitting}
               />
             </div>
 
             <div className="flex gap-3">
               <button
                 onClick={handleSubmit}
-                disabled={!name.trim() || !email.trim()}
+                disabled={!name.trim() || !email.trim() || isSubmitting}
                 className="flex-1 py-3 bg-primary text-primary-foreground rounded-lg text-[15px] font-black active:opacity-90 transition-all disabled:opacity-50 disabled:grayscale-[0.5]"
               >
-                관심 있어요
+                {isSubmitting ? "신청 중..." : "관심 있어요"}
               </button>
               <button
                 onClick={handleClose}
+                disabled={isSubmitting}
                 className="px-4 py-3 text-muted-foreground text-[15px] font-medium"
               >
                 닫기

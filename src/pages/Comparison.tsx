@@ -87,7 +87,12 @@ const Comparison = () => {
         </p>
       </main>
 
-      <InterestModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <InterestModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        score={score}
+        gender={gender}
+      />
     </MobileContainer>
   );
 };
