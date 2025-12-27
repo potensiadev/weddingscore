@@ -4,6 +4,7 @@ import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
 import { ChatBubble } from "@/components/ChatBubble";
 import { ScoreResult } from "@/lib/scoring/types";
+import { trackEvent } from "@/lib/analytics";
 import {
   Radar,
   RadarChart,
@@ -26,6 +27,14 @@ const Result = () => {
   const [displayScore, setDisplayScore] = useState(0);
 
   useEffect(() => {
+    // Track result view
+    if (result) {
+      trackEvent('result_view', {
+        total_score: result.score,
+        tier: result.tier
+      });
+    }
+
     // Initialize Kakao SDK
     const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY;
     if (kakaoKey && window.Kakao && !window.Kakao.isInitialized()) {
@@ -49,21 +58,38 @@ const Result = () => {
       }, 16);
       return () => clearInterval(timer);
     }
-  }, [result?.score]);
+  }, [result?.score, result?.tier]);
 
   const handleComparisonTier = () => {
+    trackEvent('result_cta_click', {
+      cta_type: 'similar_profile',
+      total_score: result?.score,
+      tier: result?.tier
+    });
     navigate("/comparison", { state: { score: result?.score, gender: input?.gender } });
   };
 
   const handleRealisticMatch = () => {
+    trackEvent('result_cta_click', {
+      cta_type: 'similar_profile',
+      total_score: result?.score,
+      tier: result?.tier
+    });
     navigate("/comparison", { state: { score: result?.score, gender: input?.gender } });
   };
 
   const handleKakaoShare = () => {
+    trackEvent('result_cta_click', {
+      cta_type: 'kakao_share',
+      total_score: result?.score,
+      tier: result?.tier
+    });
+
     if (!window.Kakao) {
       alert("공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
       return;
     }
+    // ... (rest of handleKakaoShare unchanged)
 
     if (!window.Kakao.isInitialized()) {
       const key = import.meta.env.VITE_KAKAO_JS_KEY;
@@ -203,7 +229,14 @@ const Result = () => {
             나와 비슷한 이성 스펙 확인하기
           </button>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => {
+              trackEvent('result_cta_click', {
+                cta_type: 'retry',
+                total_score: result?.score,
+                tier: result?.tier
+              });
+              navigate("/");
+            }}
             className="w-full py-4 bg-secondary text-secondary-foreground rounded-2xl font-bold text-[15px] active:scale-[0.98] transition-transform chat-appear"
             style={{ animationDelay: "1000ms" }}
           >

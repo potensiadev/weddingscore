@@ -1,18 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { trackEvent, getEntrySource } from "@/lib/analytics";
 
 const Index = () => {
   const navigate = useNavigate();
   const [participantCount, setParticipantCount] = useState(1240);
 
   useEffect(() => {
+    // Track landing view
+    trackEvent('landing_view', { entry_source: getEntrySource() });
+
     const interval = setInterval(() => {
       setParticipantCount(prev => prev + Math.floor(Math.random() * 3));
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleStart = () => {
+  const handleStart = (ctaLocation: string) => {
+    trackEvent('start_test', { cta_location: ctaLocation });
     navigate("/survey");
   };
 
@@ -80,7 +85,7 @@ const Index = () => {
         {/* CTA Button */}
         <div className="w-full sticky bottom-8 z-40">
           <button
-            onClick={handleStart}
+            onClick={() => handleStart('hero')}
             className="w-full py-5 bg-primary text-primary-foreground rounded-2xl text-lg font-black shadow-[0_20px_40px_-10px_rgba(254,229,0,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all animate-pulse-glow"
           >
             내 점수 무료로 확인하기

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
+import { trackEvent } from "@/lib/analytics";
 
 interface Answer {
   questionId: string;
@@ -140,6 +141,7 @@ const Survey = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const isFinishedRef = useRef(false);
 
   const getVisibleQuestions = (currentAnswers: Answer[]) => {
     return questions.filter((q) => {
@@ -153,11 +155,41 @@ const Survey = () => {
   const totalQuestions = visibleQuestions.length;
 
   useEffect(() => {
+    // Track question view
+    if (currentQuestion) {
+      trackEvent('survey_question_view', {
+        question_id: currentQuestion.id,
+        question_order: currentQuestionIndex + 1
+      });
+    }
+  }, [currentQuestionIndex, currentQuestion?.id]);
+
+  useEffect(() => {
+    // Drop-off tracking
+    return () => {
+      if (!isFinishedRef.current && currentQuestion) {
+        trackEvent('survey_drop', {
+          last_question_id: currentQuestion.id,
+          last_question_order: currentQuestionIndex + 1,
+          answered_count: answers.length
+        });
+      }
+    };
+  }, [currentQuestionIndex, currentQuestion?.id, answers.length]);
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [answers, currentQuestionIndex]);
 
   const handleSelect = (option: { value: string; label: string }) => {
     if (isTransitioning || !currentQuestion) return;
+
+    // Track answer select
+    trackEvent('survey_answer_select', {
+      question_id: currentQuestion.id,
+      question_order: currentQuestionIndex + 1,
+      answer_value: option.value
+    });
 
     setIsTransitioning(true);
 
@@ -176,6 +208,7 @@ const Survey = () => {
       const nextIndex = currentQuestionIndex + 1;
 
       if (nextIndex >= nextVisibleQuestions.length) {
+        isFinishedRef.current = true;
         // Map answers to ScoreInput
         const getValue = (id: string) => updatedAnswers.find(a => a.questionId === id)?.answerValue;
 
@@ -234,6 +267,11 @@ const Survey = () => {
 
         navigate("/analyzing", { state: { input } });
       } else {
+        // Track next question transition
+        trackEvent('survey_next', {
+          from_question: currentQuestion.id,
+          to_question: nextVisibleQuestions[nextIndex].id
+        });
         setCurrentQuestionIndex(nextIndex);
       }
       setIsTransitioning(false);

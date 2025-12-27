@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
 import { api } from "@/services/api";
+import { trackEvent } from "@/lib/analytics";
 
 const Analyzing = () => {
   const navigate = useNavigate();
@@ -19,7 +20,15 @@ const Analyzing = () => {
     "최종 결혼 시장 점수 산출 중..."
   ];
 
+  const isCompletedRef = useRef(false);
+  const startTimeRef = useRef(Date.now());
+
   useEffect(() => {
+    // Track analyzing view
+    trackEvent('analyzing_view', {
+      answered_count: location.state?.input ? 10 : 0 // Assuming approx 10 questions
+    });
+
     const processResult = async () => {
       if (!location.state?.input) {
         navigate("/");
@@ -43,15 +52,15 @@ const Analyzing = () => {
       }, 600);
 
       try {
-        const startTime = Date.now();
         const result = await api.submitScore(location.state.input);
 
-        const elapsed = Date.now() - startTime;
+        const elapsed = Date.now() - startTimeRef.current;
         const remaining = Math.max(0, 3500 - elapsed); // Longer loading for "premium" feel
 
         setTimeout(() => {
           clearInterval(progressInterval);
           clearInterval(statusInterval);
+          isCompletedRef.current = true;
           navigate("/result", { state: { result, input: location.state.input } });
         }, remaining);
       } catch (error) {
@@ -66,6 +75,14 @@ const Analyzing = () => {
     };
 
     processResult();
+
+    return () => {
+      // Track exit if not completed
+      if (!isCompletedRef.current) {
+        const durationSec = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        trackEvent('analyzing_exit', { duration_sec: durationSec });
+      }
+    };
   }, [navigate, location.state]);
 
   return (
