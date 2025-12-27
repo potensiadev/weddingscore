@@ -230,21 +230,25 @@ const Survey = () => {
     <MobileContainer>
       <Header title="연애·결혼 시장 테스트" />
 
-      <main className="flex-1 px-4 py-4 flex flex-col overflow-y-auto">
-        <div className="text-xs text-muted-foreground mb-4">
-          {currentQuestionIndex + 1} / {totalQuestions}
-        </div>
+      {/* Progress Bar */}
+      <div className="w-full h-1.5 bg-secondary/30 sticky top-0 z-10">
+        <div
+          className="h-full bg-gradient-to-r from-primary/50 to-primary transition-all duration-500 ease-out"
+          style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
 
-        <div className="flex flex-col gap-3">
+      <main className="flex-1 px-4 py-6 flex flex-col overflow-y-auto bg-[#F7F7F7]">
+        <div className="flex flex-col gap-5">
           {answers.map((answer, index) => (
-            <div key={index} className="flex flex-col gap-2">
+            <div key={index} className="flex flex-col gap-3">
               <div className="flex justify-start">
-                <div className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px]">
+                <div className="max-w-[85%] px-4 py-3 bg-white rounded-2xl rounded-tl-none shadow-sm text-[15px] font-medium text-foreground/90 border border-black/5">
                   {answer.questionText}
                 </div>
               </div>
               <div className="flex justify-end">
-                <div className="max-w-[85%] px-4 py-3 bg-primary text-primary-foreground rounded-lg text-[15px]">
+                <div className="max-w-[85%] px-4 py-3 bg-primary text-primary-foreground rounded-2xl rounded-tr-none shadow-md shadow-primary/20 text-[15px] font-bold">
                   {answer.answerText}
                 </div>
               </div>
@@ -252,9 +256,9 @@ const Survey = () => {
           ))}
 
           {currentQuestion && (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               <div className="flex justify-start">
-                <div className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px] chat-appear">
+                <div className="max-w-[85%] px-4 py-3 bg-white rounded-2xl rounded-tl-none shadow-sm text-[15px] font-medium text-foreground/90 border border-black/5 chat-appear">
                   {currentQuestion.text}
                 </div>
               </div>
@@ -265,8 +269,8 @@ const Survey = () => {
                     key={option.value}
                     onClick={() => handleSelect(option)}
                     disabled={isTransitioning}
-                    className="max-w-[85%] px-4 py-3 bg-card rounded-lg text-[15px] text-right active:bg-primary active:text-primary-foreground chat-appear disabled:opacity-50"
-                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                    className="max-w-[85%] px-5 py-3.5 bg-white rounded-2xl shadow-sm text-[15px] font-bold text-foreground/80 text-right border border-black/5 hover:bg-primary/5 hover:border-primary/20 active:scale-[0.98] transition-all chat-appear disabled:opacity-50"
+                    style={{ animationDelay: `${(index + 1) * 80}ms` }}
                   >
                     {option.label}
                   </button>
@@ -275,7 +279,7 @@ const Survey = () => {
             </div>
           )}
 
-          <div ref={chatEndRef} />
+          <div ref={chatEndRef} className="h-10" />
         </div>
       </main>
     </MobileContainer>

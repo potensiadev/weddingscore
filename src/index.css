@@ -7,17 +7,22 @@
 @layer base {
   :root {
     /* KakaoTalk Chat UI colors */
-    --background: 0 0% 97%; /* #F7F7F7 */
-    --foreground: 0 0% 20%; /* #333333 */
+    --background: 0 0% 97%;
+    /* #F7F7F7 */
+    --foreground: 0 0% 20%;
+    /* #333333 */
 
-    --card: 0 0% 100%; /* White bubbles */
+    --card: 0 0% 100%;
+    /* White bubbles */
     --card-foreground: 0 0% 20%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    --primary: 54 100% 50%; /* Kakao Yellow #FEE500 */
-    --primary-foreground: 0 0% 0%; /* Black text on yellow */
+    --primary: 54 100% 50%;
+    /* Kakao Yellow #FEE500 */
+    --primary-foreground: 0 0% 0%;
+    /* Black text on yellow */
 
     --secondary: 0 0% 93%;
     --secondary-foreground: 0 0% 20%;
@@ -99,6 +104,52 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  .mesh-gradient {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(at 0% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(220, 100%, 50%, 0.05) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%);
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.05)];
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 0px rgba(254, 229, 0, 0));
+    }
+
+    50% {
+      opacity: 0.8;
+      filter: drop-shadow(0 0 15px rgba(254, 229, 0, 0.5));
     }
   }
 }

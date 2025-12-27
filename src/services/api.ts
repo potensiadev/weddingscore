@@ -9,7 +9,7 @@ export const api = {
         const result = calculateScore(input);
 
         // 2. Generate AI Summary
-        const ai_summary = await generateAiSummary(result);
+        const ai_summary = await generateAiSummary(input, result);
 
         return { ...result, ai_summary };
     },
