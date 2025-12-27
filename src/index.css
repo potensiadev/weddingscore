@@ -4,152 +4,111 @@
 
 /* KakaoTalk-inspired Design System */
 
-@layer base {
-  :root {
-    /* KakaoTalk Chat UI colors */
-    --background: 0 0% 97%;
-    /* #F7F7F7 */
-    --foreground: 0 0% 20%;
-    /* #333333 */
+:root {
+  --background: 0 0% 97%;
+  --foreground: 0 0% 20%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 20%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 20%;
+  --primary: 54 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 0 0% 20%;
+  --muted: 0 0% 93%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 0% 93%;
+  --accent-foreground: 0 0% 20%;
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 54 100% 50%;
+  --radius: 12px;
+  --chat-bubble-left: 0 0% 100%;
+  --chat-bubble-right: 54 100% 50%;
+  --landing-background: 0 0% 100%;
+  --landing-foreground: 0 0% 8%;
+  --landing-secondary: 0 0% 25%;
+  --landing-muted: 0 0% 55%;
+  --landing-border: 0 0% 90%;
+  --landing-section: 0 0% 98%;
+  --landing-button: 0 0% 12%;
+  --landing-button-foreground: 0 0% 100%;
+}
 
-    --card: 0 0% 100%;
-    /* White bubbles */
-    --card-foreground: 0 0% 20%;
+* {
+  border-color: hsl(var(--border));
+}
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-weight: 500;
+}
 
-    --primary: 54 100% 50%;
-    /* Kakao Yellow #FEE500 */
-    --primary-foreground: 0 0% 0%;
-    /* Black text on yellow */
+.chat-appear {
+  animation: chatAppear 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateY(8px);
+}
 
-    --secondary: 0 0% 93%;
-    --secondary-foreground: 0 0% 20%;
-
-    --muted: 0 0% 93%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 0% 93%;
-    --accent-foreground: 0 0% 20%;
-
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 54 100% 50%;
-
-    --radius: 12px;
-
-    /* Chat specific */
-    --chat-bubble-left: 0 0% 100%;
-    --chat-bubble-right: 54 100% 50%;
-
-    /* Landing page specific */
-    --landing-background: 0 0% 100%;
-    --landing-foreground: 0 0% 8%;
-    --landing-secondary: 0 0% 25%;
-    --landing-muted: 0 0% 55%;
-    --landing-border: 0 0% 90%;
-    --landing-section: 0 0% 98%;
-    --landing-button: 0 0% 12%;
-    --landing-button-foreground: 0 0% 100%;
-  }
-
-  .dark {
-    --background: 0 0% 97%;
-    --foreground: 0 0% 20%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
-    --primary: 54 100% 50%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 93%;
-    --secondary-foreground: 0 0% 20%;
-    --muted: 0 0% 93%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 93%;
-    --accent-foreground: 0 0% 20%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 54 100% 50%;
+@keyframes chatAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+.mesh-gradient {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(220, 100%, 50%, 0.05) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    font-weight: 500;
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-/* Chat bubble animations */
-@layer utilities {
-  .chat-appear {
-    animation: chatAppear 0.3s ease-out forwards;
-    opacity: 0;
-    transform: translateY(8px);
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(254, 229, 0, 0));
   }
 
-  @keyframes chatAppear {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .mesh-gradient {
-    background-color: #ffffff;
-    background-image:
-      radial-gradient(at 0% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%),
-      radial-gradient(at 50% 0%, hsla(220, 100%, 50%, 0.05) 0, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(54, 100%, 50%, 0.15) 0, transparent 50%);
-  }
-
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.05)];
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse-glow {
-
-    0%,
-    100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 0px rgba(254, 229, 0, 0));
-    }
-
-    50% {
-      opacity: 0.8;
-      filter: drop-shadow(0 0 15px rgba(254, 229, 0, 0.5));
-    }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 15px rgba(254, 229, 0, 0.5));
   }
 }
