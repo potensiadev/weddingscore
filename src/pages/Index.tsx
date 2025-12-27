@@ -47,7 +47,7 @@ const Index = () => {
           </h1>
           <p className="text-lg text-muted-foreground font-medium leading-relaxed">
             연봉, 직업, 학벌, 자산... <br />
-            냉혹한 시장 가치를 10초 만에 분석해 드립니다.
+            냉혹한 시장 가치를 5초 만에 분석해드려요.
           </p>
         </div>
 
@@ -91,13 +91,9 @@ const Index = () => {
         </div>
 
         {/* Trust Section */}
-        <div className="mt-20 grid grid-cols-2 gap-4 w-full">
-          <div className="p-4 rounded-2xl bg-white/50 border border-border/50">
-            <p className="text-2xl font-black text-foreground">98%</p>
-            <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">데이터 정확도</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-white/50 border border-border/50">
-            <p className="text-2xl font-black text-foreground">10초</p>
+        <div className="mt-20 w-full flex justify-center">
+          <div className="p-4 rounded-2xl bg-white/50 border border-border/50 min-w-[140px]">
+            <p className="text-2xl font-black text-foreground">5초</p>
             <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">평균 분석 시간</p>
           </div>
         </div>

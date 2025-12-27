@@ -2,7 +2,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ScoreInput, ScoreResult } from "../scoring/types";
 
 // Initialize Gemini API
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || "dummy");
+const genAI = new GoogleGenerativeAI(
+    import.meta.env.VITE_GEMINI_API_KEY || "dummy"
+);
 
 export async function generateAiSummary(input: ScoreInput, result: ScoreResult): Promise<string> {
     if (!import.meta.env.VITE_GEMINI_API_KEY) {
@@ -11,7 +13,12 @@ export async function generateAiSummary(input: ScoreInput, result: ScoreResult):
     }
 
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        // Use gemini-1.5-flash (standard stable name)
+        // Explicitly set apiVersion to v1 if v1beta is failing
+        // @ts-ignore - The SDK supports a second argument for RequestOptions, but lint may mismatch
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash"
+        }, { apiVersion: "v1" });
 
         const prompt = `
             당신은 대한민국 최고의 결혼정보회사(결정사) 베테랑 커플 매니저입니다.
@@ -19,6 +26,7 @@ export async function generateAiSummary(input: ScoreInput, result: ScoreResult):
 
             [사용자 데이터]
             - 성별: ${input.gender === 'male' ? '남성' : '여성'}
+            - 연령: ${input.age}
             - 연봉: ${input.salary}구간 (0-6)
             - 직업: ${input.job}
             - 학력: ${input.education} (${input.university})
@@ -37,8 +45,12 @@ export async function generateAiSummary(input: ScoreInput, result: ScoreResult):
         const chat = await model.generateContent(prompt);
         const response = await chat.response;
         return response.text().trim();
-    } catch (error) {
-        console.error("Gemini Error:", error);
+    } catch (error: any) {
+        console.error("Gemini Error Details:", {
+            message: error.message,
+            stack: error.stack,
+            error: error
+        });
         return "AI 분석 중 오류가 발생했습니다. (잠시 후 다시 시도해주세요)";
     }
 }
