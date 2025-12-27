@@ -1,11 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
 import { ChatBubble } from "@/components/ChatBubble";
 import { InterestModal } from "@/components/InterestModal";
+import { api } from "@/services/api";
+import { SimulationStats } from "@/lib/scoring/simulation";
 
 const Comparison = () => {
   const [showModal, setShowModal] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [stats, setStats] = useState<SimulationStats | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      const { score, gender } = location.state || {};
+      if (score === undefined || !gender) {
+        navigate("/");
+        return;
+      }
+
+      try {
+        const data = await api.getCompareStats(score, gender);
+        setStats(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchStats();
+  }, [location.state, navigate]);
+
+  if (!stats) return null; // Or loading spinner
 
   return (
     <MobileContainer>
@@ -18,11 +45,11 @@ const Comparison = () => {
         {/* Income stats */}
         <div className="flex justify-start chat-appear" style={{ animationDelay: "200ms" }}>
           <div className="max-w-[85%] bg-card rounded-lg px-4 py-3">
-            <p className="text-[15px] text-card-foreground font-medium mb-2">평균 연봉: 6,800만 원</p>
+            <p className="text-[15px] text-card-foreground font-medium mb-2">평균 연봉: {(stats.salaryMean / 10000).toLocaleString()}만 원</p>
             <div className="flex flex-col gap-1 text-[14px] text-card-foreground">
-              <p>대기업 정규직 32%</p>
-              <p>공무원/공기업 21%</p>
-              <p>전문직 15%</p>
+              {stats.jobTop3.map((job, i) => (
+                <p key={i}>{job.jobType} {job.percent}%</p>
+              ))}
             </div>
           </div>
         </div>
@@ -31,8 +58,8 @@ const Comparison = () => {
         <div className="flex justify-start chat-appear" style={{ animationDelay: "400ms" }}>
           <div className="max-w-[85%] bg-card rounded-lg px-4 py-3">
             <div className="flex flex-col gap-1 text-[14px] text-card-foreground">
-              <p>4년제 이상 78%</p>
-              <p>대학원 이상 24%</p>
+              <p>4년제 이상 {stats.educationDist.uni4yrPlus + stats.educationDist.gradPlus}%</p>
+              <p>대학원 이상 {stats.educationDist.gradPlus}%</p>
             </div>
           </div>
         </div>
@@ -41,8 +68,8 @@ const Comparison = () => {
         <div className="flex justify-start chat-appear" style={{ animationDelay: "600ms" }}>
           <div className="max-w-[85%] bg-card rounded-lg px-4 py-3">
             <div className="flex flex-col gap-1 text-[14px] text-card-foreground">
-              <p>SKY·서성한 31%</p>
-              <p>기타 인서울 27%</p>
+              <p>SKY·서성한 {stats.universityDist.skySungsuhang}%</p>
+              <p>기타 인서울 {stats.universityDist.otherSeoul}%</p>
             </div>
           </div>
         </div>
@@ -51,10 +78,10 @@ const Comparison = () => {
         <div className="flex justify-start chat-appear" style={{ animationDelay: "800ms" }}>
           <div className="max-w-[85%] bg-card rounded-lg px-4 py-3">
             <div className="flex flex-col gap-1 text-[14px] text-card-foreground">
-              <p>자가 보유 36%</p>
-              <p>차량 보유 62%</p>
-              <p className="pl-3 text-muted-foreground">외제차 22%</p>
-              <p className="pl-3 text-muted-foreground">국산차 40%</p>
+              <p>자가 보유 {stats.homeOwnershipRate}%</p>
+              <p>차량 보유 {stats.carOwnershipRate}%</p>
+              <p className="pl-3 text-muted-foreground">외제차 {stats.carTypeDist.foreign}%</p>
+              <p className="pl-3 text-muted-foreground">국산차 {stats.carTypeDist.domestic}%</p>
             </div>
           </div>
         </div>

@@ -163,7 +163,62 @@ const Survey = () => {
       const nextIndex = currentQuestionIndex + 1;
 
       if (nextIndex >= nextVisibleQuestions.length) {
-        navigate("/analyzing", { state: { answers: updatedAnswers } });
+        // Map answers to ScoreInput
+        const getValue = (id: string) => updatedAnswers.find(a => a.questionId === id)?.answerValue;
+
+        const mapSalary = (val?: string) => {
+          if (val === 'under-3000') return 0;
+          if (val === '3000-3999') return 1;
+          if (val === '4000-4999') return 2;
+          if (val === '5000-6999') return 3;
+          if (val === '7000-8999') return 4;
+          return 5; // over-9000
+        };
+
+        const mapJob = (val?: string) => {
+          if (val === 'professional') return 'professional';
+          if (val === 'big-corp') return 'large_corp';
+          if (val === 'public') return 'public';
+          if (val === 'mid-corp') return 'mid_corp';
+          if (val === 'startup') return 'sme';
+          if (val === 'freelance') return 'freelance';
+          return 'other';
+        };
+
+        const mapEdu = (val?: string) => {
+          if (val === 'graduate') return 'master';
+          if (val === 'university') return 'bachelor';
+          if (val === 'college') return 'college';
+          return 'highschool';
+        };
+
+        const mapUni = (val?: string) => {
+          if (val === 'sky' || val === 'kaist-postech') return 'top_tier';
+          if (val === 'top-tier' || val === 'overseas') return 'seoul_major';
+          if (val === 'mid-tier' || val === 'seoul-other') return 'seoul_other';
+          if (val === 'metro') return 'regional_national';
+          return 'regional_private';
+        };
+
+        const mapRegion = (val?: string) => {
+          if (val === 'seoul') return 'seoul_favored';
+          if (val === 'gyeonggi') return 'gyeonggi_new';
+          return 'other';
+        };
+
+        const input = {
+          salary: mapSalary(getValue('salary')),
+          job: mapJob(getValue('job')),
+          education: mapEdu(getValue('education')),
+          university: mapUni(getValue('school')),
+          homeOwnership: getValue('housing') === 'yes',
+          carOwnership: getValue('car') === 'yes',
+          carType: getValue('car-type') === 'foreign' ? '외제차' : (getValue('car-type') === 'domestic' ? '국산차' : null),
+          region: mapRegion(getValue('region')),
+          gender: (getValue('gender') || 'male') as 'male' | 'female'
+        };
+
+        navigate("/analyzing", { state: { input } });
       } else {
         setCurrentQuestionIndex(nextIndex);
       }

@@ -3,16 +3,39 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MobileContainer } from "@/components/MobileContainer";
 import { Header } from "@/components/Header";
 
+import { api } from "@/services/api";
+
 const Analyzing = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/result", { state: location.state });
-    }, 2500);
+    const processResult = async () => {
+      if (!location.state?.input) {
+        navigate("/");
+        return;
+      }
 
-    return () => clearTimeout(timer);
+      try {
+        // Minimum loading time for UX
+        const startTime = Date.now();
+
+        const result = await api.submitScore(location.state.input);
+
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, 2000 - elapsed); // Ensure at least 2s loading
+
+        setTimeout(() => {
+          navigate("/result", { state: { result, input: location.state.input } });
+        }, remaining);
+      } catch (error) {
+        console.error("Error calculating score:", error);
+        // Handle error (maybe show toast or redirect)
+        navigate("/");
+      }
+    };
+
+    processResult();
   }, [navigate, location.state]);
 
   return (
