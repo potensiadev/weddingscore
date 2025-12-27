@@ -11,6 +11,11 @@ import {
   PolarAngleAxis,
   ResponsiveContainer
 } from "recharts";
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 const Result = () => {
   const navigate = useNavigate();
@@ -21,6 +26,12 @@ const Result = () => {
   const [displayScore, setDisplayScore] = useState(0);
 
   useEffect(() => {
+    // Initialize Kakao SDK
+    const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY;
+    if (kakaoKey && window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init(kakaoKey);
+    }
+
     if (result?.score) {
       let start = 0;
       const end = result.score;
@@ -46,6 +57,44 @@ const Result = () => {
 
   const handleRealisticMatch = () => {
     navigate("/comparison", { state: { score: result?.score, gender: input?.gender } });
+  };
+
+  const handleKakaoShare = () => {
+    if (!window.Kakao) {
+      alert("공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    if (!window.Kakao.isInitialized()) {
+      const key = import.meta.env.VITE_KAKAO_JS_KEY;
+      if (key) window.Kakao.init(key);
+      else {
+        alert("공유 설정이 필요합니다.");
+        return;
+      }
+    }
+
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `내 결혼 시장 가치는 ${result?.score}점!`,
+        description: result?.characterLabel,
+        imageUrl: 'https://weddingscore.vercel.app/og-image.png',
+        link: {
+          mobileWebUrl: 'https://weddingscore.vercel.app',
+          webUrl: 'https://weddingscore.vercel.app',
+        },
+      },
+      buttons: [
+        {
+          title: '결과 확인하기',
+          link: {
+            mobileWebUrl: 'https://weddingscore.vercel.app',
+            webUrl: 'https://weddingscore.vercel.app',
+          },
+        },
+      ],
+    });
   };
 
   if (!result) {
@@ -123,7 +172,7 @@ const Result = () => {
             ))}
             {result.weaknesses.map((w, i) => (
               <span key={i} className="px-3 py-1.5 bg-red-500/10 text-red-600 text-xs font-bold rounded-lg border border-red-500/20">
-                # 보완: {w}
+                # 약점: {w}
               </span>
             ))}
           </div>
@@ -151,16 +200,26 @@ const Result = () => {
         {/* CTA bubbles */}
         <div className="mt-2 flex flex-col gap-3 pb-8">
           <button
-            onClick={handleComparisonTier}
-            className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-[15px] shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform chat-appear"
+            onClick={handleKakaoShare}
+            className="w-full py-4 bg-[#FEE500] text-[#191919] rounded-2xl font-bold text-[15px] flex items-center justify-center gap-2 active:scale-[0.98] transition-transform chat-appear"
             style={{ animationDelay: "800ms" }}
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.558 1.712 4.8 4.37 6.042l-.845 3.125a.375.375 0 0 0 .574.408l3.67-2.428c.418.043.845.068 1.231.068 4.97 0 9-3.185 9-7.115S16.97 3 12 3z" />
+            </svg>
+            카카오톡으로 결과 공유하기
+          </button>
+          <button
+            onClick={handleComparisonTier}
+            className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-[15px] shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform chat-appear border border-black/5"
+            style={{ animationDelay: "1000ms" }}
           >
             나와 비슷한 이성 스펙 확인하기
           </button>
           <button
             onClick={() => navigate("/")}
             className="w-full py-4 bg-secondary text-secondary-foreground rounded-2xl font-bold text-[15px] active:scale-[0.98] transition-transform chat-appear"
-            style={{ animationDelay: "1000ms" }}
+            style={{ animationDelay: "1200ms" }}
           >
             테스트 다시 하기
           </button>
