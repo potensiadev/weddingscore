@@ -84,7 +84,7 @@ const Comparison = () => {
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3 rounded-xl bg-white/50 border border-black/5">
               <p className="text-xs font-bold text-muted-foreground uppercase mb-1">4년제 이상</p>
-              <p className="text-lg font-black text-foreground">{stats.educationDist.uni4yrPlus + stats.educationDist.gradPlus}%</p>
+              <p className="text-lg font-black text-foreground">{Math.min(100, stats.educationDist.uni4yrPlus + stats.educationDist.gradPlus)}%</p>
             </div>
             <div className="p-3 rounded-xl bg-white/50 border border-black/5">
               <p className="text-xs font-bold text-muted-foreground uppercase mb-1">대학원 이상</p>
@@ -96,7 +96,7 @@ const Comparison = () => {
               <Building2 size={14} className="text-primary" />
               <span className="text-sm font-bold text-foreground/80">SKY·서성한 비율</span>
             </div>
-            <span className="text-sm font-black text-primary">{stats.universityDist.skySungsuhang}%</span>
+            <span className="text-sm font-black text-foreground">{stats.universityDist.skySungsuhang}%</span>
           </div>
         </StatCard>
 
@@ -120,7 +120,7 @@ const Comparison = () => {
             <div className="pl-6 flex gap-4">
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase">외제차</span>
-                <span className="text-sm font-bold text-primary">{stats.carTypeDist.foreign}%</span>
+                <span className="text-sm font-bold text-foreground">{stats.carTypeDist.foreign}%</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase">국산차</span>

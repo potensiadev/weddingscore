@@ -47,6 +47,19 @@ const questions: Question[] = [
     ],
   },
   {
+    id: "age",
+    text: "현재 나의 연령대는?",
+    options: [
+      { value: "20-24", label: "20~24세" },
+      { value: "25-29", label: "25~29세" },
+      { value: "30-34", label: "30~34세" },
+      { value: "35-39", label: "35~39세" },
+      { value: "40-44", label: "40~44세" },
+      { value: "45-49", label: "45~49세" },
+      { value: "50+", label: "50세 이상" },
+    ],
+  },
+  {
     id: "education",
     text: "최종 학력은?",
     options: [
@@ -209,6 +222,7 @@ const Survey = () => {
         const input = {
           salary: mapSalary(getValue('salary')),
           job: mapJob(getValue('job')),
+          age: getValue('age') || '30-34',
           education: mapEdu(getValue('education')),
           university: mapUni(getValue('school')),
           homeOwnership: getValue('housing') === 'yes',

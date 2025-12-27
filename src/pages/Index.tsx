@@ -38,11 +38,11 @@ const Index = () => {
         {/* Hero Section */}
         <div className="animate-float mb-10">
           <div className="inline-block px-4 py-1.5 bg-primary/10 text-primary-foreground text-[13px] font-bold rounded-full border border-primary/20 mb-6">
-            2024년 최신 결정사 데이터 반영
+            2026년 최신 결정사 데이터 반영
           </div>
-          <h1 className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-black leading-[1.3] tracking-tight text-foreground mb-6">
             나는 <br />
-            <span className="text-primary bg-black px-2">결혼정보회사</span>에서 <br />
+            <span className="text-primary bg-black px-2 py-0.5 inline-block my-1">결혼정보회사</span>에서 <br />
             몇 점일까?
           </h1>
           <p className="text-lg text-muted-foreground font-medium leading-relaxed">
@@ -108,7 +108,7 @@ const Index = () => {
         <p className="text-[12px] text-muted-foreground leading-relaxed font-medium">
           본 테스트는 실제 결혼정보회사 평가와 차이가 있을 수 있으며, <br />
           재미 및 자기이해 목적의 참고 자료입니다. <br />
-          © 2024 WeddingScore. All rights reserved.
+          © 2026 WeddingScore. All rights reserved.
         </p>
       </footer>
     </div>

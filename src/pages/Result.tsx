@@ -63,6 +63,7 @@ const Result = () => {
   const chartData = [
     { subject: '연봉', A: result.breakdown.salary, fullMark: 35 },
     { subject: '직업', A: result.breakdown.job, fullMark: 25 },
+    { subject: '나이', A: result.breakdown.age, fullMark: 30 },
     { subject: '학력', A: result.breakdown.education, fullMark: 25 },
     { subject: '자산', A: result.breakdown.assets, fullMark: 20 },
     { subject: '거주지', A: result.breakdown.region, fullMark: 10 },

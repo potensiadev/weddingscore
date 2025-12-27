@@ -10,6 +10,27 @@ export const JOB_POINTS: Record<string, number> = {
     'other': 10
 };
 
+export const AGE_POINTS: Record<string, Record<string, number>> = {
+    'male': {
+        '20-24': 10,
+        '25-29': 25,
+        '30-34': 30,
+        '35-39': 20,
+        '40-44': 15,
+        '45-49': 5,
+        '50+': 1
+    },
+    'female': {
+        '20-24': 30,
+        '25-29': 25,
+        '30-34': 20,
+        '35-39': 15,
+        '40-44': 10,
+        '45-49': 5,
+        '50+': 1
+    }
+};
+
 export const EDU_POINTS: Record<string, number> = {
     'phd': 20,
     'master': 18,
