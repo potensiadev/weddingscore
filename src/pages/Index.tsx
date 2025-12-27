@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { trackEvent, getEntrySource } from "@/lib/analytics";
+import { trackEvent, getEntrySource, incrementAttemptIndex } from "@/lib/analytics";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ const Index = () => {
   }, []);
 
   const handleStart = (ctaLocation: string) => {
+    incrementAttemptIndex();
     trackEvent('start_test', { cta_location: ctaLocation });
     navigate("/survey");
   };

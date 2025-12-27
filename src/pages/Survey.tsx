@@ -159,10 +159,11 @@ const Survey = () => {
     if (currentQuestion) {
       trackEvent('survey_question_view', {
         question_id: currentQuestion.id,
-        question_order: currentQuestionIndex + 1
+        question_order: currentQuestionIndex + 1,
+        answered_count: answers.length
       });
     }
-  }, [currentQuestionIndex, currentQuestion?.id]);
+  }, [currentQuestionIndex, currentQuestion?.id, answers.length]);
 
   useEffect(() => {
     // Drop-off tracking
@@ -188,7 +189,8 @@ const Survey = () => {
     trackEvent('survey_answer_select', {
       question_id: currentQuestion.id,
       question_order: currentQuestionIndex + 1,
-      answer_value: option.value
+      answer_value: option.value,
+      answered_count: answers.length
     });
 
     setIsTransitioning(true);
@@ -209,7 +211,8 @@ const Survey = () => {
 
       if (nextIndex >= nextVisibleQuestions.length) {
         isFinishedRef.current = true;
-        // Map answers to ScoreInput
+
+        // ... (mapping logic continues)
         const getValue = (id: string) => updatedAnswers.find(a => a.questionId === id)?.answerValue;
 
         const mapSalary = (val?: string) => {

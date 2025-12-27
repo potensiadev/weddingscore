@@ -26,17 +26,55 @@ interface EventProperties {
 }
 
 /**
+ * Gets the current attempt index from storage.
+ * 1 = first time, 2+ = retry
+ */
+export const getAttemptIndex = (): number => {
+    if (typeof window === 'undefined') return 1;
+    const stored = localStorage.getItem('ws_attempt_index');
+    return stored ? parseInt(stored, 10) : 1;
+};
+
+/**
+ * Increments the attempt index (called on test start).
+ */
+export const incrementAttemptIndex = () => {
+    if (typeof window === 'undefined') return;
+    const current = getAttemptIndex();
+    localStorage.setItem('ws_attempt_index', (current + 1).toString());
+};
+
+/**
+ * Basic device type detection
+ */
+export const getDeviceType = (): 'mobile' | 'desktop' => {
+    if (typeof window === 'undefined') return 'desktop';
+    const ua = navigator.userAgent;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+        return 'mobile';
+    }
+    return 'desktop';
+};
+
+/**
  * Tracks a custom event in GA4.
+ * Automatically injects attempt_index and device_type.
  * Use this instead of direct window.gtag calls for type safety and consistency.
  */
 export const trackEvent = (event_name: EventName, properties?: EventProperties) => {
     if (typeof window !== 'undefined' && window.gtag) {
         try {
-            window.gtag('event', event_name, properties);
+            const payload = {
+                ...properties,
+                attempt_index: getAttemptIndex(),
+                device_type: getDeviceType()
+            };
+
+            window.gtag('event', event_name, payload);
 
             // Also log to console in development for easier debugging
             if (import.meta.env.MODE === 'development') {
-                console.log(`[GA4 Tracking]: ${event_name}`, properties);
+                console.log(`[GA4 Tracking]: ${event_name}`, payload);
             }
         } catch (e) {
             console.error('[GA4 Tracking Error]:', e);
